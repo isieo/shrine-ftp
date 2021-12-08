@@ -40,11 +40,16 @@ class Shrine
       # == Returns:
       # An object that represents the Ftp storage.
       #
-      def initialize(host:, user:, password:, dir:, prefix: nil)
+      def initialize(host:, user:, password:, dir:, prefix: nil, public_dir: nil)
         @host = host
         @user = user
         @passwd = password
         @dir = dir
+        if external_dir.nil?
+          @public_dir = dir
+        else
+          @public_dir = public_dir
+        end
         @prefix = prefix || host
       end
 
@@ -59,7 +64,7 @@ class Shrine
 
       # Returns the URL of where the file is assumed to be, based on `prefix`
       def url(id, **options)
-        return [@prefix, @dir, id].join('/')
+        return [@prefix, @public_dir, id].join('/')
       end
 
       # Downloads the file
