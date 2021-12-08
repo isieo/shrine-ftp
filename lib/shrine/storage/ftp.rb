@@ -45,7 +45,7 @@ class Shrine
         @user = user
         @passwd = password
         @dir = dir
-        if external_dir.nil?
+        if public_dir.nil?
           @public_dir = dir
         else
           @public_dir = public_dir
